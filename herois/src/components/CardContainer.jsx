@@ -6,19 +6,24 @@ const Container = styled.div`
     display:flex;
     flex-wrap: wrap;
     width: 100%;
+    min-height:100vh;
     justify-content: space-around;
 `
 
 const CardContainer = (props) => {
+    console.log(props.filtro)
     const herois = props.herois
     // console.log(herois)
     if (herois.length > 0) {
         return (
             <Container>
-                {
-                    herois.map((item) => (
-                        <Card key={item.id} herois={item} />
-                    ))
+                {herois
+                    .filter(item => {
+                        return item.name.toLowerCase().includes(props.filtro.toLowerCase())
+                    })
+                    .map(item=> {
+                        return <Card key={item.id} herois={item} />
+                    })
                 }
             </Container>
         )

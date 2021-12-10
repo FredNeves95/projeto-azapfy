@@ -17,6 +17,7 @@ const Background = styled.div`
 function App() {
 
   const [herois, setHerois] = useState();
+  const [pesquisa, setPesquisa] = useState("");
 
   useEffect(() => {
     api
@@ -26,12 +27,12 @@ function App() {
         console.error("ops! ocorreu um erro" + err);
       });
   }, []);
-
+  // console.log(pesquisa)
   if (herois && herois.length > 0) {
     return (
       <Background>
-        <Menu/>
-        <CardContainer herois={herois} />
+        <Menu pesquisa={pesquisa} setPesquisa={setPesquisa}/>
+        <CardContainer herois={herois} filtro={pesquisa}/>
       </Background>
     );
   }
