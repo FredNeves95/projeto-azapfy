@@ -1,31 +1,32 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const CardBox = styled.div`
     background-color: black;
-    height: fit-content;
-    width: 30vw;
-    box-shadow: 3px 3px 6px#363636;
+    height: 30vh;
+    width: 25vw;
+    min-width: 460px;
+    min-height: 200px;
+    box-shadow: 3px 3px 6px#273d12;
     display: flex;
-    margin: 2%;
-    padding-right: 2%;
+    margin: 8px;
    
     img{
         width: 50%;
+        height: 100%
     }
 `
 const Name = styled.h2`
-    color: #4F4F4F;
+    
     margin:0;
 `
 const Info = styled.div`
     display: flex;
-    flex-direction: column;
     width:  50%;
-    margin: 25% 0 0 6%;
+    align-items: center;
+    padding-left: 8px;
 
     .nascimento{
-        margin-top: 30%;
         align-self: end;
     }
 
@@ -34,39 +35,31 @@ const Info = styled.div`
     }
 `
 
-const Card = ( props ) => {
-    const herois = props.herois
-    console.log( herois )
+const Card = (props) => {
+    const heroi = props.herois
+    console.log(heroi)
 
-    const heroi = herois.map( item => {
-        let localDeNascimento = ""
+    let localDeNascimento = ""
 
-        if ( item.biography.placeOfBirth === "-" ) {
-            localDeNascimento = "Unknown"
-        } else {
-            localDeNascimento = item.biography.placeOfBirth
-        }
-
-        return (
-            <CardBox>
-                <img src={ item.images.md } />
-                <Info>
-                    <div className="nome">
-                        <Name>{ item.name }</Name>
-                        <p>{ item.biography.publisher }</p>
-                    </div>
-                    <div className="nascimento">
-                        <h5>{ localDeNascimento }</h5>
-                    </div>
-                </Info>
-            </CardBox>
-        )
-    })
+    if (heroi.biography.placeOfBirth === "-") {
+        localDeNascimento = "Unknown"
+    } else {
+        localDeNascimento = heroi.biography.placeOfBirth
+    }
 
     return (
-        <div>
-            { heroi }
-        </div>
+        <CardBox key={heroi.id}>
+            <img src={heroi.images.md} alt={heroi.name} />
+            <Info>
+                <div className="nome">
+                    <Name>{heroi.name}</Name>
+                    <p>{heroi.biography.publisher}</p>
+                </div>
+                <div className="nascimento">
+                    <h5>{localDeNascimento}</h5>
+                </div>
+            </Info>
+        </CardBox>
     )
 }
 

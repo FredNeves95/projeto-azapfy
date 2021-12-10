@@ -4,17 +4,27 @@ import Card from "./Card";
 
 const Container = styled.div`
     display:flex;
-    flex-grow: row;
     flex-wrap: wrap;
     width: 100%;
+    justify-content: space-around;
 `
 
 const CardContainer = (props) => {
     const herois = props.herois
+    // console.log(herois)
+    if (herois.length > 0) {
+        return (
+            <Container>
+                {
+                    herois.map((item) => (
+                        <Card key={item.id} herois={item} />
+                    ))
+                }
+            </Container>
+        )
+    }
     return (
-        <Container>
-            <Card herois={herois} />
-        </Container>
+        <></>
     )
 }
 
