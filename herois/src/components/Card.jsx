@@ -28,6 +28,8 @@ const Info = styled.div`
 
     .nascimento{
         align-self: end;
+        padding:0;
+        margin:0;
     }
 
     p{
@@ -37,7 +39,6 @@ const Info = styled.div`
 
 const Card = (props) => {
     const heroi = props.herois
-    console.log(heroi)
 
     let localDeNascimento = ""
 
@@ -48,7 +49,7 @@ const Card = (props) => {
     }
 
     return (
-        <CardBox key={heroi.id}>
+        <CardBox onClick={props.escolherHeroi}>
             <img src={heroi.images.md} alt={heroi.name} />
             <Info>
                 <div className="nome">
