@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const CardBox = styled.div`
@@ -7,17 +7,20 @@ const CardBox = styled.div`
     width: 25vw;
     min-width: 460px;
     min-height: 200px;
-    box-shadow: 3px 3px 6px#273d12;
+    box-shadow: ${props => props.selecionado ? "3px 3px 6px blue" : "3px 3px 6px#273d12"};
     display: flex;
     margin: 8px;
-   
+
+    :hover{
+        box-shadow: 3px 3px 6px yellow;
+    }
+
     img{
         width: 50%;
         height: 100%
     }
 `
-const Name = styled.h2`
-    
+const Name = styled.h2`    
     margin:0;
 `
 const Info = styled.div`
@@ -38,29 +41,39 @@ const Info = styled.div`
 `
 
 const Card = (props) => {
-    const heroi = props.herois
+    const heroi = props.herois;
+    const [selecionado, setSelecionado] = useState(false);
 
-    let localDeNascimento = ""
-
+    // Retorna "Unknown" caso o local de nascimento do personagem não esteja especificado na API
+    let localDeNascimento = "";
     if (heroi.biography.placeOfBirth === "-") {
-        localDeNascimento = "Unknown"
+        localDeNascimento = "Unknown";
     } else {
-        localDeNascimento = heroi.biography.placeOfBirth
+        localDeNascimento = heroi.biography.placeOfBirth;
+    }
+
+    // Função criada para executar a função de escolherHeroi (recebida por props)
+    // e para setar o estado selecionado como true, para estilização condicional no styled component (selecionado fica azul)
+    const selecionaPersonagem = () => {
+        setSelecionado(true);
+        props.escolherHeroi();
     }
 
     return (
-        <CardBox onClick={props.escolherHeroi}>
-            <img src={heroi.images.md} alt={heroi.name} />
-            <Info>
-                <div className="nome">
-                    <Name>{heroi.name}</Name>
-                    <p>{heroi.biography.publisher}</p>
-                </div>
-                <div className="nascimento">
-                    <h5>{localDeNascimento}</h5>
-                </div>
-            </Info>
-        </CardBox>
+        <div>
+            <CardBox onClick={selecionaPersonagem} selecionado={selecionado}>
+                <img src={heroi.images.md} alt={heroi.name} />
+                <Info>
+                    <div className="nome">
+                        <Name>{heroi.name}</Name>
+                        <p>{heroi.biography.publisher}</p>
+                    </div>
+                    <div className="nascimento">
+                        <h5>{localDeNascimento}</h5>
+                    </div>
+                </Info>
+            </CardBox>
+        </div>
     )
 }
 
