@@ -6,6 +6,8 @@ const ContainerMenu = styled.div`
     background-color: #273d12;
     display: flex;
     padding: 4px;
+    position: sticky;
+    top:0;
     align-items: center;
     justify-content:space-around;
     input{
@@ -16,9 +18,11 @@ const ContainerMenu = styled.div`
         border: 1px solid black;
         border-radius: 5px;
         box-shadow: 3px 3px 3px #131f09;
+        font-size: 16px;
         ::placeholder{
         color: #273d12;
         text-align: center;        
+        font-size: 16px;
         }
     }
 `
