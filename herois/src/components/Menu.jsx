@@ -10,6 +10,7 @@ const ContainerMenu = styled.div`
     top:0;
     align-items: center;
     justify-content:space-around;
+
     input{
         height: 36px;
         width: 280px;
@@ -19,19 +20,23 @@ const ContainerMenu = styled.div`
         border-radius: 5px;
         box-shadow: 3px 3px 3px #131f09;
         font-size: 16px;
-        ::placeholder{
-        color: #273d12;
-        text-align: center;        
-        font-size: 16px;
-        }
+        
+            ::placeholder{
+                color: #273d12;
+                text-align: center;        
+                font-size: 16px;
+            }
+
     }
 `
 
 const Menu = (props) => {
 
+    // Função que recebe o valor digitado no input controlado para executar a filtragem dos personagens
     const pesquisaItem = (e) => {
-        props.setPesquisa(e.target.value)
+        props.setPesquisa(e.target.value);
     }
+
     return (
         <ContainerMenu>
             <input placeholder="Digite o nome do personagem" value={props.pesquisa} onChange={pesquisaItem} type="text"/>
